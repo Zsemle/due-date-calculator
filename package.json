@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Zsemle/due-date-calculator/issues"
   },
-  "homepage": "https://github.com/Zsemle/due-date-calculator#readme"
+  "homepage": "https://github.com/Zsemle/due-date-calculator#readme",
+  "dependencies": {
+    "mocha": "^5.2.0"
+  }
 }
