@@ -1,6 +1,8 @@
 function CalculateDueDate(submitDate,turnaroundTime){
+  let oneDayMs = 1000*60*60*24;
+  let oneHourMs = 1000*60*60;
   let resolvedBy = new Date(submitDate);
-  let timeLeft = turnaroundTime*60*60*1000;
+  let timeLeft = turnaroundTime*oneHourMs;
   let submitDateEndOfWorkingHours = new Date(submitDate);
   submitDateEndOfWorkingHours.setUTCHours(17);
   submitDateEndOfWorkingHours.setUTCMinutes(0);
@@ -11,16 +13,15 @@ function CalculateDueDate(submitDate,turnaroundTime){
     resolvedBy.setTime(resolvedBy.getTime() + timeLeft);
     return resolvedBy;
   }else{
-    resolvedBy.setTime(resolvedBy.getTime() + 1000*60*60*24);
+    resolvedBy.setTime(resolvedBy.getTime() + oneDayMs);
     timeLeft -= workingHoursLeftToday;
   }
-  let remainingFullDays = Math.floor(timeLeft/1000/60/60/8);
+  let remainingFullDays = Math.floor(timeLeft/(oneHourMs*8));
   for (let i = 0; i < remainingFullDays; i++){
-    console.log('loop');
-    resolvedBy.setTime(resolvedBy.getTime() + 1000*60*60*24);
+    resolvedBy.setTime(resolvedBy.getTime() + oneDayMs);
     timeLeft -= 1000*60*60*8;
     if (resolvedBy.getUTCDay() > 5){
-      resolvedBy.setTime(resolvedBy.getTime() + 1000*60*60*24*2);
+      resolvedBy.setTime(resolvedBy.getTime() + oneDayMs*2);
     }
   }
   resolvedBy.setUTCHours(9);
